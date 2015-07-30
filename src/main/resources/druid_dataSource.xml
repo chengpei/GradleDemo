@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+    <bean id="baseDs" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"
+          abstract="true">
+        <!-- 最大连接池数量 -->
+        <property name="maxActive" value="${jdbc.maxActive_tmoss}"/>
+        <!-- 初始化时建立物理连接的个数 -->
+        <property name="initialSize" value="${jdbc.initialSize_tmoss}"/>
+        <!--获取连接时最大等待时间，单位毫秒  -->
+        <property name="maxWait" value="${jdbc.maxWait_tmoss}"/>
+        <!-- 最小连接池数量 -->
+        <property name="minIdle" value="${jdbc.minIdle_tmoss}"/>
+        <!-- Destroy线程会检测连接的间隔时间 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis_tmoss}"/>
+        <!-- Destory线程中如果检测到当前连接的最后活跃时间和当前时间的差值大于minEvictableIdleTimeMillis，则关闭当前连接-->
+        <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis_tmoss}"/>
+        <!-- 用来检测连接是否有效的sql，要求是一个查询语句。 -->
+        <property name="validationQuery" value="${jdbc.validationQuery_tmoss}"/>
+        <property name="testWhileIdle" value="${jdbc.testWhileIdle_tmoss}"/>
+        <!-- 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。 -->
+        <property name="testOnBorrow" value="${jdbc.testOnBorrow_tmoss}"/>
+        <property name="testOnReturn" value="${jdbc.testOnReturn_tmoss}"/>
+        <!-- -是否缓存preparedStatement，也就是PSCache -->
+        <property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements_tmoss}"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+                  value="${jdbc.maxPoolPreparedStatementPerConnectionSize_tmoss}"/>
+        <!-- 监控 -->
+        <property name="filters" value="${jdbc.filters_tmoss}"/>
+        <!-- 超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="${jdbc.removeAbandoned}"></property>
+        <!-- 超时时间；单位为秒。180秒 -->
+        <property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}"></property>
+        <!-- 关闭abanded连接时输出错误日志  测试用
+        <property name="logAbandoned" value="true" /> -->
+    </bean>
+
+    <bean id="dataSource_tmoss" parent="baseDs">
+        <!--<property name="name" value="db_tmoss"/>-->
+        <property name="url" value="${jdbc.url_tmoss}"/>
+        <property name="username" value="${jdbc.username_tmoss}"/>
+        <property name="password" value="${jdbc.password_tmoss}"/>
+    </bean>
+
+    <!--<bean id="sqlSessionFactory_tmoss" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="dataSource_tmoss"/>-->
+        <!--<property name="mapperLocations">-->
+            <!--<array>-->
+                <!--<value>classpath:mapper/tmoss/*.xml</value>-->
+            <!--</array>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean id="mybatisConfigurer_tmoss" class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+        <!--<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory_tmoss"/>-->
+        <!--<property name="basePackage" value="com.edu.mmd.dao.tmoss"/>-->
+    <!--</bean>-->
+
+</beans>
