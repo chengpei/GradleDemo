@@ -121,9 +121,8 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>DruidStatView</servlet-name>
-        <url-pattern>/druid/*.druid</url-pattern>
+        <url-pattern>/druid/*</url-pattern>
     </servlet-mapping>
-    <!-- 具体哪些是不需要纳入监控范围，需要过滤的 -->
     <filter>
         <filter-name>DruidWebStatFilter</filter-name>
         <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
