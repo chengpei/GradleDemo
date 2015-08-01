@@ -1,6 +1,7 @@
 <%@ page isELIgnored="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,10 +26,10 @@
     </form>
 </div>
 <div style="width:800px;margin: auto;">
-    <c:forEach items="${rows}" var="row" varStatus="vs">
-        <span style="font-size: 20px;">${rows.size()-vs.index}楼</span>&nbsp;&nbsp;
-        <span style="font-size: 15px;">${row.TIME.substring(0,19)}</span>
-        ${row.CONTENT}
+    <c:forEach items="${messageBoardList}" var="messageBoard" varStatus="vs">
+        <span style="font-size: 20px;">${messageBoardList.size()-vs.index}楼</span>&nbsp;&nbsp;
+        <span style="font-size: 15px;"><fmt:formatDate value="${messageBoard.createTime}" pattern="yyyy/MM/dd HH:mm:ss"/></span>
+        ${messageBoard.content}
         <br/>
         <HR style="border:3 double #987cb9" width="100%" color=#987cb9 SIZE=3>
     </c:forEach>

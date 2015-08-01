@@ -1,16 +1,19 @@
 package com.chengpei.controller;
 
+import com.chengpei.model.MessageBoard;
+import com.chengpei.service.MessageBoardService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by chengpei on 2015/7/27.
@@ -20,25 +23,28 @@ import java.util.*;
 public class MessageBoardController {
     protected final Log logger = LogFactory.getLog(getClass());
 
+    @Autowired
+    private MessageBoardService messageBoardService;
+
     @RequestMapping(value = "/loadMessageBoard", method = RequestMethod.GET)
-    public String toMessageBoard(){
-        return "/messageBoard";
+    public ModelAndView toMessageBoard(){
+        List<MessageBoard> messageBoardList = messageBoardService.selectMessageBoardByAcceptPerson(1);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/messageBoard");
+        modelAndView.addObject("messageBoardList", messageBoardList);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public String submit(HttpSession session, HttpServletRequest request){
-        String editorValue = request.getParameter("editorValue");
-        if(editorValue != null){
-            List<Map<String, Object>> rows = (List<Map<String, Object>>) session.getAttribute("rows");
-            if(rows == null){
-                rows = new ArrayList<Map<String, Object>>();
-            }
-            Map<String, Object> map = new LinkedHashMap<String, Object>();
-            map.put("TIME",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-            map.put("CONTENT", request.getParameter("editorValue"));
-            rows.add(map);
-            logger.debug("±à¼­Æ÷Ìá½»ÄÚÈÝ£º" + request.getParameter("editorValue"));
-            session.setAttribute("rows",rows);
+    public String submit(HttpServletRequest request) throws Exception {
+        if(!StringUtils.isEmpty(request.getParameter("editorValue"))){
+            MessageBoard messageBoard = new MessageBoard();
+            messageBoard.setContent(request.getParameter("editorValue"));
+            messageBoard.setAcceptPerson(1);
+            messageBoard.setCreatePerson(1);
+            messageBoard.setCreateTime(new Date());
+            logger.debug("submit() --> messageBoard = " + messageBoard);
+            messageBoardService.saveMessageBoard(messageBoard);
         }
         return "redirect:/messageboard/loadMessageBoard";
     }
