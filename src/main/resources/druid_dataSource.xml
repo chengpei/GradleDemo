@@ -63,18 +63,19 @@
         <!--<property name="configLocation" value="classpath:mybatis-config.xml"/>-->
     </bean>
 
-    <!--采用自动扫描，无需手动一个个创建
-    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="com.ai.edu.dao.StaffInfoMapper" />
+    <!--此配置为手动添加Mapper，手动一个个创建
+    <bean id="messageBoardMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.chengpei.dao.MessageBoardMapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>-->
     <!--
-        3. mybatis自动扫描加载Sql映射文件 : MapperScannerConfigurer
-            sqlSessionFactory / basePackage
-    -->
+        3. 此配置为自动添加Mapper，mybatis自动扫描加载Sql映射文件 : MapperScannerConfigurer
+            sqlSessionFactory / basePackage-->
+
     <bean id="config" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.chengpei.dao"/>
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+        <!-- 单数据源可不配置，多数据源需要配置对应数据源sqlSessionFactoryBeanName -->
+        <!--<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />-->
     </bean>
 
     <!-- 4. 事务管理 : DataSourceTransactionManager -->
@@ -117,9 +118,7 @@
     </tx:advice>
     <!-- 以下两种方式都可以配置多个事务 start -->
     <aop:config proxy-target-class="true">
-        <aop:pointcut id="servicePointcut" expression="
-			execution(* com.chengpei.dao..*(..))
-		"/>
+        <aop:pointcut id="servicePointcut" expression="execution(* com.chengpei.service.*.*(..))"/>
 
         <aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointcut" />
     </aop:config>
