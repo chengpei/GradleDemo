@@ -1,8 +1,9 @@
 package com.chengpei.service;
 
-import com.chengpei.dao.MessageBoardDAO;
 import com.chengpei.dao.mapper.MessageBoardMapper;
 import com.chengpei.model.MessageBoard;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,14 @@ public class MessageBoardService {
     @Autowired
     private MessageBoardMapper messageBoardMapper;
 
-    @Autowired
-    private MessageBoardDAO messageBoardDAO;
-
     public Integer saveMessageBoard(MessageBoard messageBoard) {
         return messageBoardMapper.insertSelective(messageBoard);
     }
 
     public List<MessageBoard> selectMessageBoardByAcceptPerson(int acceptPerson) {
-        return messageBoardDAO.selectMessageBoardByAcceptPerson(acceptPerson,0,5);
+        PageHelper.startPage(1,5);
+        Page page = (Page) messageBoardMapper.selectMessageBoardByAcceptPerson(acceptPerson);
+        logger.debug("MessageBoardService.selectMessageBoardByAcceptPerson() -----> " + page);
+        return page;
     }
 }
