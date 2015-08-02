@@ -3,7 +3,7 @@
   <head>
     <title>SpringMVC首页</title>
   </head>
-  <body>
+  <body style="background-color: #dadada">
   SpringMVC首页 测试
   </body>
 </html>

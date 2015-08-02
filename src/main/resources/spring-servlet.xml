@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
@@ -8,6 +9,8 @@
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/mvc
 		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd"
        default-autowire="byName">
@@ -15,6 +18,17 @@
     <context:annotation-config/>
 
     <context:component-scan base-package="com.chengpei"/>
+
+    <aop:aspectj-autoproxy/>
+    <aop:config>
+        <aop:aspect id="logAspect" ref="logAspect">
+            <aop:pointcut id="myPointCut" expression="execution(* com.chengpei.service.*.*(..))"/>
+
+            <aop:before method="begin" pointcut-ref="myPointCut"/>
+            <aop:before method="after" pointcut-ref="myPointCut"/>
+            <aop:before method="around" pointcut-ref="myPointCut"/>
+        </aop:aspect>
+    </aop:config>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
