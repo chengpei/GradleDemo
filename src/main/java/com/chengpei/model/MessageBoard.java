@@ -1,6 +1,5 @@
 package com.chengpei.model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MessageBoard {
@@ -109,7 +108,7 @@ public class MessageBoard {
      * @mbggenerated
      */
     public Date getCreateTime() {
-        return this.createTime;
+        return createTime;
     }
 
     /**
