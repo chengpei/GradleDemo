@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chengpei.dao.MessageBoardMapper">
+<mapper namespace="com.chengpei.dao.mapper.MessageBoardMapper">
   <resultMap id="BaseResultMap" type="com.chengpei.model.MessageBoard">
     <!--
       WARNING - @mbggenerated
@@ -141,6 +141,7 @@
     <include refid="Base_Column_List" />
     from tf_message_board
     where STATUS = 'E' AND ACCEPT_PERSON = #{acceptPerson,jdbcType=INTEGER}
+    order by CREATE_TIME desc
   </select>
 
 </mapper>

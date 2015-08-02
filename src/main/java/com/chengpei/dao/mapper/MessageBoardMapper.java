@@ -1,4 +1,4 @@
-package com.chengpei.dao;
+package com.chengpei.dao.mapper;
 
 import com.chengpei.model.MessageBoard;
 

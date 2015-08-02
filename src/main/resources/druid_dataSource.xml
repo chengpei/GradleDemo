@@ -65,7 +65,7 @@
 
     <!--此配置为手动添加Mapper，手动一个个创建
     <bean id="messageBoardMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="com.chengpei.dao.MessageBoardMapper" />
+        <property name="mapperInterface" value="com.chengpei.dao.mapper.MessageBoardMapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>-->
     <!--

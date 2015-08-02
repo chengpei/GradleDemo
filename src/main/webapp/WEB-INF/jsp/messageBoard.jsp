@@ -13,7 +13,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
 </head>
-<body>
+<body style="background-color: #dadada">
 <script type="text/javascript">
     var ue = UE.getEditor('container',{
         autoHeightEnabled: false
