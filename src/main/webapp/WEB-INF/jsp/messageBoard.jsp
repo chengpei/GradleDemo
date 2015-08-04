@@ -29,6 +29,7 @@
     <c:forEach items="${messageBoardList}" var="messageBoard" varStatus="vs">
         <span style="font-size: 20px;">${messageBoardList.size()-vs.index}楼</span>&nbsp;&nbsp;
         <span style="font-size: 15px;"><fmt:formatDate value="${messageBoard.createTime}" pattern="yyyy/MM/dd HH:mm:ss"/></span>
+        <br/>
         ${messageBoard.content}
         <br/>
         <HR style="border:3 double #987cb9" width="100%" color=#987cb9 SIZE=3>
