@@ -47,6 +47,9 @@
     </bean>
 
     <!--数据源-->
-    <import resource="classpath:druid_dataSource.xml"/>
+    <import resource="classpath:spring/spring-druidDataSource.xml"/>
+
+    <!-- 定时任务 -->
+    <import resource="classpath:spring/spring-quartz.xml"/>
 
 </beans>
