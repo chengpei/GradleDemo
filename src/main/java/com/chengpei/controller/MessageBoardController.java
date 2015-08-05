@@ -37,6 +37,14 @@ public class MessageBoardController {
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     public String submit(HttpServletRequest request) throws Exception {
+//        InputStreamReader isr = new InputStreamReader(request.getInputStream());
+//        StringBuilder body = new StringBuilder();
+//        char[] bt = new char[100];
+//        while (isr.read(bt,0,bt.length) != -1){
+//            body.append(bt);
+//        }
+//        logger.debug("submit() --> RequestBody = " + body.toString());
+//        isr.close();
         if(!StringUtils.isEmpty(request.getParameter("editorValue"))){
             MessageBoard messageBoard = new MessageBoard();
             messageBoard.setContent(request.getParameter("editorValue"));
