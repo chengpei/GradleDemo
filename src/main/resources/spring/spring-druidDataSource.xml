@@ -54,11 +54,11 @@
     <!--2. 创建SqlSessionFactory，同时指定数据源-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="druidDataSource" />
-        <!--<property name="mapperLocations">-->
-            <!--<list>-->
-                <!--<value>classpath:mapper/*.xml</value>-->
-            <!--</list>-->
-        <!--</property>-->
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:mapper/*.xml</value>
+            </list>
+        </property>
         <!-- 没有mybatis配置文件时，使用上一行配置 -->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>

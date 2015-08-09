@@ -1,6 +1,6 @@
 package com.chengpei.test;
 
-import com.chengpei.quartz.QuartzSpringJob;
+import com.chengpei.quartz.DBTestJob;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.impl.triggers.CronTriggerImpl;
@@ -24,13 +24,13 @@ public class QuartzDemo {
         Scheduler scheduler = sf.getScheduler();
 
         // 通过过JobDetail封装QuartJob，同时指定Job在Scheduler中所属组及名称，这里，组名为group1，而名称为job1。
-        JobDetail job = newJob(QuartzSpringJob.class).withIdentity("job1", "group1").build();
+        JobDetail job = newJob(DBTestJob.class).withIdentity("job1", "group1").build();
 
         // 创建一个SimpleTrigger实例，指定该Trigger在Scheduler中所属组及名称。
         // 接着设置调度的时间规则.当前时间运行
         Trigger trigger = newTrigger().withIdentity("trigger1", "group1")
 //                .withSchedule(simpleSchedule().withIntervalInSeconds(5).repeatForever())
-                .withSchedule(cronSchedule("0/5 * * * * ?"))
+                .withSchedule(cronSchedule("0/7 * * * * ?"))
                 .startNow().build();
 
         // 注册并进行调度

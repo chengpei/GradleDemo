@@ -1,34 +1,27 @@
 package com.chengpei.test;
 
-import com.chengpei.quartz.QuartJob;
-import org.quartz.*;
-import org.quartz.impl.StdSchedulerFactory;
-import org.quartz.impl.triggers.CronTriggerImpl;
+import com.chengpei.model.JobInfo;
+import com.chengpei.util.JobManager;
+import org.junit.Assert;
+import org.junit.Test;
 
-import java.text.ParseException;
+import javax.annotation.Resource;
+import java.util.List;
 
-import static org.quartz.CronScheduleBuilder.cronSchedule;
-import static org.quartz.JobBuilder.newJob;
-import static org.quartz.TriggerBuilder.newTrigger;
+public class SpringTest extends SpringTestContext{
 
-/**
- * Created by chengpei on 2015/8/5.
- */
-public class SpringTest {
+    @Resource
+    private JobManager jobManager;
 
-    public static void main(String[] args) throws Exception {
-        // 通过SchedulerFactory获取一个调度器实例
-        SchedulerFactory sf = new StdSchedulerFactory();
-
-        Scheduler scheduler = sf.getScheduler();
-
-        TriggerKey triggerKey = new TriggerKey("trigger1", "group1");
-
-        CronTriggerImpl trigger = (CronTriggerImpl) scheduler.getTrigger(triggerKey);
-
-        trigger.setCronExpression("0/1 * * * * ?");
-
-        // 注册并进行调度
-        scheduler.rescheduleJob(triggerKey, trigger);
+    @Test
+    public void test() throws Exception {
+        List<JobInfo> jobInfos = jobManager.initAllJob();
+        Assert.assertNotNull(jobInfos);
+        Thread.sleep(15 * 1000);
+        jobManager.pauseTriger(1);
+        logger.debug("===============触发器暂停================");
+        Thread.sleep(10 * 1000);
+        jobManager.startTriger(1);
+        Thread.sleep(60 * 1000);
     }
 }

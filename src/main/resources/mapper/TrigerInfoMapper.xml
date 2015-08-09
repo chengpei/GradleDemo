@@ -22,18 +22,10 @@
     where TRIGER_ID = #{trigerId,jdbcType=INTEGER}
   </select>
 
-  <select id="selectTrigerByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+  <select id="selectTrigerByJobId" resultMap="BaseResultMap" parameterType="java.util.Map">
     select
     <include refid="Base_Column_List" />
-    from tf_quartz_triger
-    <where>
-      <if test="trigerId != null">
-        TRIGER_ID = #{trigerId,jdbcType=INTEGER}
-      </if>
-      <if test="jobId != null">
-        AND JOB_ID = #{jobId,jdbcType=INTEGER}
-      </if>
-    </where>
+    from tf_quartz_triger where JOB_ID = #{jobId,jdbcType=INTEGER}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

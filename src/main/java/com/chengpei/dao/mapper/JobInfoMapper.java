@@ -2,8 +2,8 @@ package com.chengpei.dao.mapper;
 
 import com.chengpei.model.JobInfo;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public interface JobInfoMapper {
     int deleteByPrimaryKey(Byte jobId);
@@ -18,5 +18,5 @@ public interface JobInfoMapper {
 
     int updateByPrimaryKey(JobInfo record);
 
-    JobInfo selectJobInfoByCondition(Map<String, Objects> condition);
+    List<JobInfo> selectJobInfoByCondition(Map<String, Object> condition);
 }

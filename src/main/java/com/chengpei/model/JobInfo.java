@@ -12,6 +12,8 @@ public class JobInfo {
 
     private String jobGroup;
 
+    private String jobClass;
+
     private String status;
 
     private Date createTime;
@@ -50,6 +52,14 @@ public class JobInfo {
         this.jobGroup = jobGroup == null ? null : jobGroup.trim();
     }
 
+    public String getJobClass() {
+        return jobClass;
+    }
+
+    public void setJobClass(String jobClass) {
+        this.jobClass = jobClass == null ? null : jobClass.trim();
+    }
+
     public String getStatus() {
         return status;
     }
@@ -81,9 +91,9 @@ public class JobInfo {
                 ", jobName='" + jobName + '\'' +
                 ", jobCode='" + jobCode + '\'' +
                 ", jobGroup='" + jobGroup + '\'' +
+                ", jobClass='" + jobClass + '\'' +
                 ", status='" + status + '\'' +
                 ", createTime=" + createTime +
-                ", trigerInfoList=" + trigerInfoList +
                 '}';
     }
 }

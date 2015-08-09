@@ -44,8 +44,8 @@
     </plugins>
 
     <!-- Continue going here -->
-    <mappers>
-        <mapper resource="mapper/MessageBoardMapper.xml"/>
-    </mappers>
+    <!--<mappers>-->
+        <!--<mapper resource="mapper/MessageBoardMapper.xml"/>-->
+    <!--</mappers>-->
 
 </configuration>

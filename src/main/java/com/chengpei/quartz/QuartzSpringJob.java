@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * Created by chengpei on 2015/8/5.
  */
-public class QuartzSpringJob implements Job{
+public class QuartzSpringJob{
     protected final Log logger = LogFactory.getLog(getClass());
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -25,12 +25,4 @@ public class QuartzSpringJob implements Job{
         logger.debug("*********************************************************************************************************************");
     }
 
-    @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
-        logger.debug("*********************************************************************************************************************");
-        logger.debug("*********************************************************************************************************************");
-        logger.debug("****************************  QuartJob定时任务execute()启动 "+sdf.format(new Date())+" *************************************");
-        logger.debug("*********************************************************************************************************************");
-        logger.debug("*********************************************************************************************************************");
-    }
 }

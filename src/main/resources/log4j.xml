@@ -29,11 +29,11 @@
 	<!--log4j.logger.java.sql.PreparedStatement=DEBUG-->
 
 	<logger name="java.sql.ResultSet" additivity="false">
-		<level value="info"/>
+		<level value="debug"/>
 		<appender-ref ref="stdout" />
 	</logger>
 	<logger name="org.apache" additivity="false">
-		<level value="info"/>
+		<level value="debug"/>
 		<appender-ref ref="stdout" />
 	</logger>
 	<logger name="java.sql.Connection" additivity="false">
@@ -48,9 +48,13 @@
 		<level value="debug"/>
 		<appender-ref ref="stdout" />
 	</logger>
+	<logger name="com.chengpei" additivity="false">
+		<level value="debug"/>
+		<appender-ref ref="stdout" />
+	</logger>
 
 	<root>
-		<level value="debug" />
+		<level value="warn" />
 		<appender-ref ref="stdout" />
 	</root>
 </log4j:configuration>
