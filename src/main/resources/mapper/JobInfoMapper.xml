@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chengpei.dao.mapper.JobInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.chengpei.model.JobInfo" >
+    <id column="JOB_ID" property="jobId" jdbcType="TINYINT" />
+    <result column="JOB_NAME" property="jobName" jdbcType="VARCHAR" />
+    <result column="JOB_CODE" property="jobCode" jdbcType="VARCHAR" />
+    <result column="JOB_GROUP" property="jobGroup" jdbcType="VARCHAR" />
+    <result column="JOB_CLASS" property="jobClass" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="JobInfoMap" type="com.chengpei.model.JobInfo" extends="BaseResultMap">
+    <collection property="trigerInfoList" column="JOB_ID" javaType="arraylist" ofType="com.chengpei.model.TrigerInfo"
+                select="com.chengpei.dao.mapper.TrigerInfoMapper.selectTrigerByJobId"/>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    JOB_ID, JOB_NAME, JOB_CODE, JOB_GROUP, JOB_CLASS, STATUS, CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Byte" >
+    select 
+    <include refid="Base_Column_List" />
+    from tf_quartz_job
+    where JOB_ID = #{jobId,jdbcType=TINYINT}
+  </select>
+
+  <select id="selectJobInfoByCondition" parameterType="java.util.Map" resultMap="JobInfoMap">
+    select
+    <include refid="Base_Column_List" />
+    from tf_quartz_job WHERE STATUS = 'E'
+    <if test="jobId != null">
+      AND JOB_ID = #{jobId,jdbcType=TINYINT}
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte" >
+    delete from tf_quartz_job
+    where JOB_ID = #{jobId,jdbcType=TINYINT}
+  </delete>
+  <insert id="insert" parameterType="com.chengpei.model.JobInfo" >
+    insert into tf_quartz_job (JOB_ID, JOB_NAME, JOB_CODE, 
+      JOB_GROUP, JOB_CLASS, STATUS, 
+      CREATE_TIME)
+    values (#{jobId,jdbcType=TINYINT}, #{jobName,jdbcType=VARCHAR}, #{jobCode,jdbcType=VARCHAR}, 
+      #{jobGroup,jdbcType=VARCHAR}, #{jobClass,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chengpei.model.JobInfo" >
+    insert into tf_quartz_job
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jobId != null" >
+        JOB_ID,
+      </if>
+      <if test="jobName != null" >
+        JOB_NAME,
+      </if>
+      <if test="jobCode != null" >
+        JOB_CODE,
+      </if>
+      <if test="jobGroup != null" >
+        JOB_GROUP,
+      </if>
+      <if test="jobClass != null" >
+        JOB_CLASS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jobId != null" >
+        #{jobId,jdbcType=TINYINT},
+      </if>
+      <if test="jobName != null" >
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobCode != null" >
+        #{jobCode,jdbcType=VARCHAR},
+      </if>
+      <if test="jobGroup != null" >
+        #{jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="jobClass != null" >
+        #{jobClass,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chengpei.model.JobInfo" >
+    update tf_quartz_job
+    <set >
+      <if test="jobName != null" >
+        JOB_NAME = #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobCode != null" >
+        JOB_CODE = #{jobCode,jdbcType=VARCHAR},
+      </if>
+      <if test="jobGroup != null" >
+        JOB_GROUP = #{jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="jobClass != null" >
+        JOB_CLASS = #{jobClass,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where JOB_ID = #{jobId,jdbcType=TINYINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chengpei.model.JobInfo" >
+    update tf_quartz_job
+    set JOB_NAME = #{jobName,jdbcType=VARCHAR},
+      JOB_CODE = #{jobCode,jdbcType=VARCHAR},
+      JOB_GROUP = #{jobGroup,jdbcType=VARCHAR},
+      JOB_CLASS = #{jobClass,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where JOB_ID = #{jobId,jdbcType=TINYINT}
+  </update>
+</mapper>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chengpei.dao.mapper.TrigerInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.chengpei.model.TrigerInfo" >
+    <id column="TRIGER_ID" property="trigerId" jdbcType="INTEGER" />
+    <result column="TRIGER_NAME" property="trigerName" jdbcType="VARCHAR" />
+    <result column="TRIGER_CODE" property="trigerCode" jdbcType="VARCHAR" />
+    <result column="TRIGER_GROUP" property="trigerGroup" jdbcType="VARCHAR" />
+    <result column="CRON_EXPRESSION" property="cronExpression" jdbcType="VARCHAR" />
+    <result column="JOB_ID" property="jobId" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TRIGER_ID, TRIGER_NAME, TRIGER_CODE, TRIGER_GROUP, CRON_EXPRESSION, JOB_ID, STATUS, 
+    CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tf_quartz_triger
+    where TRIGER_ID = #{trigerId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectTrigerByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from tf_quartz_triger
+    <where>
+      <if test="trigerId != null">
+        TRIGER_ID = #{trigerId,jdbcType=INTEGER}
+      </if>
+      <if test="jobId != null">
+        AND JOB_ID = #{jobId,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tf_quartz_triger
+    where TRIGER_ID = #{trigerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chengpei.model.TrigerInfo" >
+    insert into tf_quartz_triger (TRIGER_ID, TRIGER_NAME, TRIGER_CODE, 
+      TRIGER_GROUP, CRON_EXPRESSION, JOB_ID, 
+      STATUS, CREATE_TIME)
+    values (#{trigerId,jdbcType=INTEGER}, #{trigerName,jdbcType=VARCHAR}, #{trigerCode,jdbcType=VARCHAR}, 
+      #{trigerGroup,jdbcType=VARCHAR}, #{cronExpression,jdbcType=VARCHAR}, #{jobId,jdbcType=INTEGER}, 
+      #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chengpei.model.TrigerInfo" >
+    insert into tf_quartz_triger
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="trigerId != null" >
+        TRIGER_ID,
+      </if>
+      <if test="trigerName != null" >
+        TRIGER_NAME,
+      </if>
+      <if test="trigerCode != null" >
+        TRIGER_CODE,
+      </if>
+      <if test="trigerGroup != null" >
+        TRIGER_GROUP,
+      </if>
+      <if test="cronExpression != null" >
+        CRON_EXPRESSION,
+      </if>
+      <if test="jobId != null" >
+        JOB_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="trigerId != null" >
+        #{trigerId,jdbcType=INTEGER},
+      </if>
+      <if test="trigerName != null" >
+        #{trigerName,jdbcType=VARCHAR},
+      </if>
+      <if test="trigerCode != null" >
+        #{trigerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="trigerGroup != null" >
+        #{trigerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="cronExpression != null" >
+        #{cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chengpei.model.TrigerInfo" >
+    update tf_quartz_triger
+    <set >
+      <if test="trigerName != null" >
+        TRIGER_NAME = #{trigerName,jdbcType=VARCHAR},
+      </if>
+      <if test="trigerCode != null" >
+        TRIGER_CODE = #{trigerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="trigerGroup != null" >
+        TRIGER_GROUP = #{trigerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="cronExpression != null" >
+        CRON_EXPRESSION = #{cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null" >
+        JOB_ID = #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where TRIGER_ID = #{trigerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chengpei.model.TrigerInfo" >
+    update tf_quartz_triger
+    set TRIGER_NAME = #{trigerName,jdbcType=VARCHAR},
+      TRIGER_CODE = #{trigerCode,jdbcType=VARCHAR},
+      TRIGER_GROUP = #{trigerGroup,jdbcType=VARCHAR},
+      CRON_EXPRESSION = #{cronExpression,jdbcType=VARCHAR},
+      JOB_ID = #{jobId,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where TRIGER_ID = #{trigerId,jdbcType=INTEGER}
+  </update>
+</mapper>
