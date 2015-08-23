@@ -24,4 +24,13 @@ public class IndexController {
         modelAndView.setViewName("index");
         return modelAndView;
     }
+
+    @RequestMapping(value = "webpage", method = RequestMethod.GET)
+    public ModelAndView webpage(){
+        logger.debug("--------------------------进入主页-----------------------------");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("username", "chengpp");
+        modelAndView.setViewName("webpage");
+        return modelAndView;
+    }
 }
